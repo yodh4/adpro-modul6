@@ -1,6 +1,6 @@
 ## Commit 1 Reflection Notes
 
-Method `handle_connection()` berguna untuk menghandle koneksi TCP. Method ini akan membaca baris yang berasal dari *TCP stream* sebagai `Vector` sampai menerima *empty line* yang menandakan akhir dari *header* HTTP dan kemudian menge-*print* seluruh HTTP *request* tersebut.
+Method `handle_connection()` berguna untuk menghandle koneksi TCP. `buf_reader` akan membaca data yang berasal dari *TCP stream* sebagai `Vector` sampai menerima *empty line* yang menandakan akhir dari *header* HTTP. Setelah itu method ini akan menge-*print* seluruh HTTP *request* tersebut.
 
 ## Commit 2 Reflection Notes
 
@@ -19,3 +19,7 @@ Pada bagian ini dilakukan refactoring karena implementasi sebelumnya mengakibatk
 ## Commit 4 Reflection Notes
 
 Pada commit ini terdapat conditional tambahan yaitu saat client mengakses path `/sleep` server akan melakukan delay saat ingin mengirim response ke client. Hal ini dilakukan dengan mengeksekusi kode `thread::sleep(Duration::from_secs(5));` di mana kode ini akan memberhentikan thread yang mengeksekusi method `handle_connection()` selama 5 detik sebelum akhirnya mengirim response ke client.  
+
+## Commit 5 Reflection Notes
+
+Thread pool adalah kumpulan thread yang dipanggil (*spawned*) dan menunggu untuk mengeksekusi sebuah tugas. Saat suatu program menerima tugas baru, program tersebut akan meng-*assign* salah satu thread yang ada pada thread pool untuk mengerjakan tugas tersebut sementara thread yang lain akan tetap tersedia untuk mengeksekusi tugas lain. Saat thread yang di-*assign* untuk mengerjakan suatu tugas telah selesai, thread tersebut akan kembali ke thread pool. Dengan melakukan thread pool kita dapat mengeksekusi beberapa tugas secara *concurent*, namun perlu diperhatikan untuk tidak menggunakan terlalu banyak thread pada suatu thread pool untuk menghindari DOS attacks.
